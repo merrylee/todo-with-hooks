@@ -1,8 +1,8 @@
 import React from 'react';
 import TodoListItem from './TodoListItem';
-import './TodoList.less';
 import {Input, Button, Icon} from 'antd';
 import PropTypes from 'prop-types';
+import StyledTodoList from './StyledTodoList.styled';
 
 class TodoList extends React.Component {
   static propTypes = {
@@ -38,7 +38,7 @@ class TodoList extends React.Component {
     const isSelectedAll = items.every(({completed}) => completed);
 
     return (
-      <div className="TodoList">
+      <StyledTodoList className="TodoList">
         <div>
           <Input
             ref={this.input}
@@ -75,7 +75,7 @@ class TodoList extends React.Component {
             <span>완료 {items.filter(item => item.completed).length}</span>
           </div>
         </div>
-      </div>
+      </StyledTodoList>
     );
   }
 }

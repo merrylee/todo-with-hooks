@@ -1,42 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Checkbox, Input, Icon} from 'antd';
 
-class TodoListItem extends React.Component {
-  handleDelete = e => {
+const TodoListItem = (props) => {
+  const {name, completed} = props;
+  const [isEditable, setEditable] = useState(false);
+
+  const handleDelete = e => {
     e.stopPropagation();
-    this.props.onDelete();
+    props.onDelete();
   };
 
-  handleEdit = () => {
-    this.setState({
-      isEditable: true,
-    });
+  const handleEdit = () => {
+    setEditable(true);
   };
 
-  handleSave = e => {
+  const handleSave = e => {
     console.log(e.target.value);
-    this.props.onEdit(e.target.value);
-    this.setState({
-      isEditable: false,
-    });
+    props.onEdit(e.target.value);
+    setEditable(true);
   };
-
-  state = {
-    isEditable: false,
-  };
-
-  render() {
-    const {name, completed} = this.props;
-    const {isEditable} = this.state;
 
     return (
-      <div className="TodoListItem" onClick={this.handleEdit}>
+      <div className="TodoListItem" onClick={handleEdit}>
         <div className="col-ck-box">
-          <Checkbox checked={completed} onChange={this.props.onChangeSelect} />
+          <Checkbox checked={completed} onChange={props.onChangeSelect} />
         </div>
         <div className="col-content">
           {isEditable ? (
-            <Input defaultValue={name} onPressEnter={this.handleSave} />
+            <Input defaultValue={name} onPressEnter={handleSave} />
           ) : (
             <span>{name}</span>
           )}
@@ -47,13 +38,13 @@ class TodoListItem extends React.Component {
             <Icon
               type={'delete'}
               className={'btn btn-delete'}
-              onClick={this.handleDelete}
+              onClick={handleDelete}
             />
           )}
         </div>
       </div>
     );
-  }
+
 }
 
 export default TodoListItem;
