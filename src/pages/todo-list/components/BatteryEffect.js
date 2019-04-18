@@ -4,7 +4,8 @@ import Battery from './Battery';
 export default function BatteryEffect(props) {
 
   const [level, setLevel] = useState(0);
-  const [charging, setCharging] = useState(0);
+  const [charging, setCharging] = useState(false);
+  const [count, setCount] = useState(100);
 
   useEffect( () => {
     let battery;
@@ -19,7 +20,7 @@ export default function BatteryEffect(props) {
       battery.removeEventListener('levelchange', handleChange);
       battery.removeEventListener('chargingchange', handleChange);
      };
-    }, [level]);
+    }, [level, count]);
 
     useEffect( () => {
       let battery;
@@ -41,8 +42,13 @@ export default function BatteryEffect(props) {
     setCharging(charging);
   }
 
+  const handleClick = () => {
+    setCount(count - 1);
+  }
+
   return (
-    <section>
+    <section onClick={handleClick}>
+      {count}
       <Battery level={level} charging={charging} />
     </section>
   );

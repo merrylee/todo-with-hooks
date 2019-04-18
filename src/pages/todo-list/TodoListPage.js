@@ -1,43 +1,60 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import TodoList from './components/TodoList';
 import { setTwoToneColor } from 'antd/lib/icon/twoTonePrimaryColor';
 
 const Page = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 80vh;
+  padding: 50px;
+
+  .CreateTodo {
+    margin-bottom: 20px;
+  }
 `;
+// const Page = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   min-height: 80vh;
+// `;
 
-const TodoListPage = () => {
+function TodoListPage() {
 
-    const todo = localStorage.getItem('todos' || []);
+    const todo = localStorage.getItem('todos');
 
-    const [items, setItems] = useState(JSON.parse(todo) || []);
+    const initialState = () => {
+      const todo = localStorage.getItem('todos' || []);
 
-    // this.headerRef = React.createRef();
+      return JSON.parse(todo);
+    }
+
+    const [items, setItems] = useState(initialState);
 
   // componentWillUnmount() {
   //   localStorage.setItem('todos', JSON.stringify(this.state.items));
   // }
 
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(items));
+
+  }, [items]);
+
   const handleSelectAll = () => {
-    setItems({
-      items: items.map(item => {
+    setItems(
+      items.map(item => {
         item.completed = true;
         return item;
       }),
-    });
+    );
   };
 
   const handleUnselectAll = () => {
-    setItems({
-      items: items.map(item => {
+    setItems(
+      items.map(item => {
         item.completed = false;
         return item;
       }),
-    });
+    );
   };
 
   const handleChangeComplete = (idx, item) => {
@@ -47,24 +64,19 @@ const TodoListPage = () => {
 
   const handleEditItem = (index, value) => {
     items[index].name = value;
-    localStorage.setItem('todos', JSON.stringify(items));
+    // localStorage.setItem('todos', JSON.stringify(items));
     setItems([...items]);
   };
 
   const handleDeleteItem = index => {
     items.splice(index, 1);
-    localStorage.setItem('todos', JSON.stringify(items));
+    // localStorage.setItem('todos', JSON.stringify(items));
     setItems([...items]);
   };
 
   const handleAddItem = text => {
-    setItems(prevState => {
-      const items = [...prevState.items, {name: text, completed: false}];
-      localStorage.setItem('todos', JSON.stringify(items));
-      return {
-        items,
-      };
-    });
+      const newItem = [...items, {name: text, completed: false}];
+      setItems(newItem);
   };
 
     return (
