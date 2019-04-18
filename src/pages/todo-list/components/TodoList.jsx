@@ -23,8 +23,6 @@ function TodoList(props) {
     onChangeComplete(index, item);
   };
 
-
-
     return (
       <StyledTodoList className="TodoList">
         <div>
@@ -68,13 +66,17 @@ function TodoList(props) {
 }
 
 TodoList.propTypes = {
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string,
-        completed: PropTypes.bool,
-      })
-    ).isRequired,
-    onUnselectAll: PropTypes.func,
-  };
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      completed: PropTypes.bool,
+    })
+  ).isRequired,
+  onUnselectAll: PropTypes.func,
+};
+
+// TodoList.defaultProps = {
+//   items: []
+// };
 
 export default TodoList;

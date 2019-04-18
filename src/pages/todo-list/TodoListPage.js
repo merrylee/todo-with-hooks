@@ -12,7 +12,7 @@ const Page = styled.div`
 
 const TodoListPage = () => {
 
-    const todo = localStorage.getItem('todos' || '[]');
+    const todo = localStorage.getItem('todos' || []);
 
     const [items, setItems] = useState(JSON.parse(todo) || []);
 
