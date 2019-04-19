@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import {Button} from 'antd';
-import {auth} from '../../contexts';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Page = styled.div`
   text-align: center;
@@ -12,24 +12,21 @@ const Page = styled.div`
   align-items: center;
 `;
 
-class LoginPage extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    console.log('LoginPage', props);
-  }
+export default function LoginPage(props) {
 
-  render() {
-    return (
+  const { authenticate } = useContext(AuthContext);
+
+  return (
       <Page>
         <div>아래 버튼을 로그인 하세요!</div>
         <div>
           <Button
             type={'primary'}
             onClick={() =>
-              auth.authenticate(() => {
-                console.log('로그인 완료!', this.props);
+              authenticate(() => {
+                console.log('로그인 완료!', props);
 
-                this.props.history.replace('/todo-list');
+                props.history.replace('/todo-list');
               })
             }>
             로그인
@@ -37,6 +34,4 @@ class LoginPage extends React.PureComponent {
         </div>
       </Page>
     );
-  }
 }
-export default LoginPage;

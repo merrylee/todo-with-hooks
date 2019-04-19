@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 import Navigation from './components/Navigation';
 import IndexPage from './pages/IndexPage';
@@ -8,16 +8,19 @@ import BlogDetailPage from './pages/blog/BlogDetailPage';
 import BlogPostPage from './pages/blog/BlogPostPage';
 import GuestHomePage from './pages/guest/GuestHomePage';
 import TodoListPage from './pages/todo-list/TodoListPage';
-import {AuthContext} from './contexts';
+import {AuthContext} from './contexts/AuthContext';
 import './AppRouter.less';
 
-const PrivateRoute = ({component: Component, ...rest}) => (
-  <AuthContext.Consumer>
-    {auth => (
+
+
+const PrivateRoute = ({component: Component, ...rest}) => {
+  const { isAuthenticated } = useContext(AuthContext);
+
+  return (
       <Route
         {...rest}
         render={props =>
-          auth.isAuthenticated ? (
+          isAuthenticated ? (
             <Component {...props} />
           ) : (
             <Redirect
@@ -29,9 +32,8 @@ const PrivateRoute = ({component: Component, ...rest}) => (
           )
         }
       />
-    )}
-  </AuthContext.Consumer>
-);
+  );
+};
 
 const AppRouter = props => (
   <Router>
@@ -45,7 +47,6 @@ const AppRouter = props => (
         <PrivateRoute path="/blog/:title" component={BlogDetailPage} />
         <Route path="/blog/new-post" component={BlogPostPage} />
         <Route path="/guest/" component={GuestHomePage} />
-
       </Switch>
     </div>
   </Router>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-import {AuthContext} from '../contexts';
+import {AuthContext} from '../contexts/AuthContext';
 import BatteryEffect from '../pages/todo-list/components/BatteryEffect';
 
 const Page = styled.div`
@@ -12,11 +12,12 @@ const Page = styled.div`
   align-items: center;
 `;
 
-const IndexPage = ({auth}) => {
+const IndexPage = (props, {auth}) => {
   return (
     <Page>
       <div>
-        <BatteryEffect />
+        {/* <BatteryEffect /> */}
+        {console.log('IndexPage', props, auth)}
         <h1>Welcome to React Basic</h1>
         <AuthContext.Consumer>
           {auth =>

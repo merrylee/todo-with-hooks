@@ -1,7 +1,7 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, { useContext } from 'react';
+import {Link, NavLink} from 'react-router-dom';
 import styled from 'styled-components';
-import {AuthContext} from '../contexts';
+import {AuthContext} from '../contexts/AuthContext';
 
 const Nav = styled.nav`
   display: flex;
@@ -10,26 +10,33 @@ const Nav = styled.nav`
   padding: 20px;
   border-bottom: 1px solid #efefef;
   background-color: #fefefe;
+
+  a {
+    &.active {
+      border-bottom: 2px solid #239;
+    }
+  }
 `;
 
 const LogoutMenu = styled.div`
   padding-right: 20px;
 `;
 
-const Navigation = ({auth}) => {
+function Navigation() {
+  const { isAuthenticated, signout } = useContext(AuthContext);
+
   return (
     <Nav>
-      <Link to="/">Home</Link>
-
-      <AuthContext.Consumer>
-        {auth =>
-          auth.isAuthenticated && (
-            <LogoutMenu onClick={() => auth.signout()}>
-              <Link to={'/'}>로그아웃</Link>
+      <NavLink exact to="/">Home</NavLink>
+      <NavLink to="/todo-list">Todos</NavLink>
+      <NavLink to="/blog">Blog</NavLink>
+      <NavLink to="/guest">Guest</NavLink>
+      { isAuthenticated && (
+            <LogoutMenu onClick={() => signout()}>
+              <Link exact to={'/'}>로그아웃</Link>
             </LogoutMenu>
           )
-        }
-      </AuthContext.Consumer>
+      }
     </Nav>
   );
 };
