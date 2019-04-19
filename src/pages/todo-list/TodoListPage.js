@@ -18,13 +18,29 @@ const Page = styled.div`
 //   min-height: 80vh;
 // `;
 
+// function useLocatlStorage(key, defaultValue, callback) {
+//   const initialState = () => {
+//     const todo = JSON.parse(
+//       localSotrage.getItem(key) || JSON.stringify(defaultValeu)
+//     );
+//   }
+// }
+
+
 function TodoListPage() {
+
+    const todoId = useRef(0);
+
+    // const [items, setItems] = useLocatlStorage('todos', [values], () => {
+    //   todoId.current = values.reduce((sum, value) => {
+    //     return Math.max(sum, value.id);
+    //   }, 0);
+    // });
 
     const todo = localStorage.getItem('todos');
 
     const initialState = () => {
       const todo = localStorage.getItem('todos' || []);
-
       return JSON.parse(todo);
     }
 

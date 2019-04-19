@@ -4,6 +4,7 @@ import {Button} from 'antd';
 import PropTypes from 'prop-types';
 import StyledTodoList from './StyledTodoList.styled';
 import CreateTodo from './CreateTodo';
+import TodoFooter from './TodoFooter';
 
 function TodoList(props) {
 
@@ -34,7 +35,7 @@ function TodoList(props) {
             );
           })}
         </div>
-
+        <TodoFooter />
         <div className={'footer'}>
           {isSelectedAll ? (
             <Button onClick={onUnselectAll}>선택해제</Button>

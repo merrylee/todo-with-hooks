@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Battery from './Battery';
 
-export default function BatteryEffect(props) {
-
+function useBattery() {
   const [level, setLevel] = useState(0);
   const [charging, setCharging] = useState(false);
   const [count, setCount] = useState(100);
@@ -42,14 +41,15 @@ export default function BatteryEffect(props) {
     setCharging(charging);
   }
 
-  const handleClick = () => {
-    setCount(count - 1);
-  }
+  return [{level, charging}];
+}
+
+export default function BatteryEffect(props) {
+  const [ battery ] = useBattery();
 
   return (
-    <section onClick={handleClick}>
-      {count}
-      <Battery level={level} charging={charging} />
+    <section>
+      <Battery level={battery.level} charging={battery.charging} />
     </section>
   );
 
