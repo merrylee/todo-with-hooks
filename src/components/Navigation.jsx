@@ -28,9 +28,9 @@ function Navigation() {
   return (
     <Nav>
       <NavLink exact to="/">Home</NavLink>
-      <NavLink to="/todo-list">Todos</NavLink>
-      <NavLink to="/blog">Blog</NavLink>
-      <NavLink to="/guest">Guest</NavLink>
+      <NavLink to="/todo-list/">Todos</NavLink>
+      <NavLink to="/blog/">Blog</NavLink>
+      <NavLink to="/guest/">Guest</NavLink>
       { isAuthenticated && (
             <LogoutMenu onClick={() => signout()}>
               <Link exact to={'/'}>로그아웃</Link>

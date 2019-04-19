@@ -11,7 +11,7 @@ import TodoListPage from './pages/todo-list/TodoListPage';
 import {AuthContext} from './contexts/AuthContext';
 import './AppRouter.less';
 
-
+import { BlogProvider, BlogContext } from './contexts/BlogContext';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -40,14 +40,18 @@ const AppRouter = props => (
     <div className={'AppRouter'}>
       <Navigation {...props} />
       <Route path="/" exact component={IndexPage} />
-      <Route path="/login/" component={AboutPage} />
-      <PrivateRoute path="/todo-list/" component={TodoListPage} />
-      <Route path="/blog/" component={BlogHomePage} />
-      <Switch>
-        <PrivateRoute path="/blog/:title" component={BlogDetailPage} />
-        <Route path="/blog/new-post" component={BlogPostPage} />
-        <Route path="/guest/" component={GuestHomePage} />
-      </Switch>
+      <BlogProvider>
+        <Route path="/blog" exact component={BlogHomePage} />
+        <Switch>
+          <PrivateRoute path="/blog/new-post" exact component={BlogPostPage} />
+          <Route path="/blog/:id" exact component={BlogDetailPage} />
+        </Switch>
+      </BlogProvider>
+      <Route path="/login" component={AboutPage} />
+      <Route path="/guest" component={GuestHomePage} />
+      {/* <TodoProvider> */}
+      <PrivateRoute path="/todo-list" component={TodoListPage} />
+      {/* </TodoProvider> */}
     </div>
   </Router>
 );
