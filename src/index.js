@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import AppRouter from './AppRouter';
 import {AuthProvider} from './contexts/AuthContext';
@@ -8,8 +8,10 @@ import {AuthProvider} from './contexts/AuthContext';
  */
 
 ReactDOM.render(
-  <AuthProvider>
-    <AppRouter />
-  </AuthProvider>,
+  <Suspense fallback={<div>Loading...</div>}>
+    <AuthProvider>
+      <AppRouter />
+    </AuthProvider>
+  </Suspense>,
   document.getElementById('root')
 );
