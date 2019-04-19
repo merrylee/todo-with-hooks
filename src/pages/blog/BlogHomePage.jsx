@@ -41,9 +41,9 @@ export default function BlogHomePage(props) {
       <div>
         {posts.map(post => {
           return (
-            <div>
+            <div key={post.id}>
               <Link to={`/blog/${post.id}`}>
-              <div key={post.id}>{post.text}</div>
+              <div>{post.text}</div>
               </Link>
           </div>);
         })}

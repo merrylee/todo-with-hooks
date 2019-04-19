@@ -44,7 +44,7 @@ const AppRouter = props => (
         <Route path="/blog" exact component={BlogHomePage} />
         <Switch>
           <PrivateRoute path="/blog/new-post" exact component={BlogPostPage} />
-          <Route path="/blog/:id" exact component={BlogDetailPage} />
+          <Route path="/blog/:postId" exact component={BlogDetailPage} />
         </Switch>
       </BlogProvider>
       <Route path="/login" component={AboutPage} />

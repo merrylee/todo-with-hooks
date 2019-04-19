@@ -34,7 +34,6 @@ class BlogProvider extends React.Component {
   render() {
     return <Provider value={this.state}>{this.props.children}</Provider>
   }
-
 }
 
 export { BlogProvider, BlogContext };
